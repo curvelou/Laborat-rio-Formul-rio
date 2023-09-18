@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formulário de Laboratório</title>
+</head>
+<body>
+
+<form id="labForm">
+    <label for="ponto">Ponto:</label>
+    <input type="text" id="ponto" name="ponto"><br><br>
+
+    <label for="tratamento">Tipo de Tratamento:</label>
+    <select id="tratamento" name="tratamento">
+        <option value="com-peroxido">Com Peróxido</option>
+        <option value="sem-peroxido">Sem Peróxido</option>
+    </select><br><br>
+
+    <label for="massa">Massa Total:</label>
+    <input type="text" id="massa" name="massa"><br><br>
+
+    <label for="fibras">Fibras:</label>
+    <input type="text" id="fibras" name="fibras"><br><br>
+
+    <label for="fragmentos">Fragmentos:</label>
+    <input type="text" id="fragmentos" name="fragmentos"><br><br>
+
+    <input type="button" value="Enviar" onclick="enviarDados()">
+</form>
+
+<script>
+    function enviarDados() {
+      async function enviarDados() {
+    const ponto = document.getElementById('ponto').value;
+    const tratamento = document.getElementById('tratamento').value;
+    const massa = document.getElementById('massa').value;
+    const fibras = document.getElementById('fibras').value;
+    const fragmentos = document.getElementById('fragmentos').value;
+
+    const data = {
+        ponto,
+        tratamento,
+        massa,
+        fibras,
+        fragmentos
+    };
+
+    try {
+        const response = await fetch('https://api.github.com/repos/curvelou/Laboratorio-Formulario/contents/dados.json', {
+            method: 'PUT',
+            headers: {
+                'Authorization': 'token SEU_TOKEN_AQUI',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                message: 'Atualizando dados do formulário',
+                content: btoa(JSON.stringify(data, null, 2))
+            })
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+            alert('Dados enviados com sucesso!');
+        } else {
+            alert('Erro ao enviar dados: ' + result.message);
+        }
+    } catch (error) {
+        alert('Erro ao enviar dados: ' + error.message);
+    }
+}
+    }
+</script>
+
+</body>
+</html>
