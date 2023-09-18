@@ -11,7 +11,7 @@ app.post('/enviarDados', async (req, res) => {
         const response = await fetch('https://api.github.com/repos/curvelou/Laboratorio-Formulario/contents/dados.json', {
             method: 'PUT',
             headers: {
-                'Authorization': 'token SEU_TOKEN_AQUI',
+                'Authorization': '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',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
